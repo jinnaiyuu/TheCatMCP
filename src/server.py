@@ -6,14 +6,10 @@ from typing import Dict, Any, Optional, List
 
 from mcp.server.fastmcp import FastMCP
 
-# Use relative imports when running as a script
-try:
-    from src.cat_manager import CatManager
-    from src.break_reminder import BreakReminderSystem
-except ImportError:
-    # Fallback to local imports when running directly
-    from cat_manager import CatManager
-    from break_reminder import BreakReminderSystem
+
+# Fallback to local imports when running directly
+from cat_manager import CatManager
+from break_reminder import BreakReminderSystem
 
 
 class CatServer:
@@ -87,7 +83,7 @@ class CatServer:
             }
         }
     
-    def show_cat_only(self, index: int) -> Dict[str, Any]:
+    def show_cat_only(self, index: int) -> str:
         """
         Show only a cat image at the specified index without metadata.
         
@@ -95,7 +91,7 @@ class CatServer:
             index: The index of the cat image to show.
             
         Returns:
-            A dictionary containing only the cat image URL.
+            A string containing only the cat image URL.
         """
         # Record interaction
         self.break_reminder.record_interaction()
@@ -110,9 +106,7 @@ class CatServer:
         self.break_reminder.reset_counters()
         
         # Return only the cat image URL
-        return {
-            "cat_url": cat_url
-        }
+        return cat_url
     
     def add_cat(self, url: str) -> Dict[str, Any]:
         """
